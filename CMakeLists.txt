@@ -10,6 +10,20 @@
 
 cmake_minimum_required(VERSION 2.8.11)
 
+
+include(cmake/HunterGate.cmake)
+
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.19.7.tar.gz"
+    SHA1 "e83786da74f703099fce44a4c021b5d3e5fc3b41"
+)
+
+if (NOT APPVEYOR)
+if (WIN32 AND (CMAKE_VERSION VERSION_EQUAL 3.6 OR (CMAKE_VERSION VERSION_GREATER 3.6 AND CMAKE_VERSION VERSION_LESS 3.7)))
+    message(FATAL_ERROR "You have bugged CMake version 3.6 which is known to not work with tesseract. Please, upgrade CMake.")
+endif()
+endif()
+
 # In-source builds are disabled.
 if (${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR
@@ -53,16 +67,28 @@ set(GENERIC_MICRO_VERSION ${VERSION_PATCH})
 
 set(MINIMUM_LEPTONICA_VERSION 1.74)
 
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.cppan)
+    hunter_add_package(Leptonica)
+    find_package(Leptonica ${MINIMUM_LEPTONICA_VERSION} REQUIRED CONFIG)
+else()
+    if (STATIC)
+        set(CPPAN_BUILD_SHARED_LIBS 0)
+    else()
+        set(CPPAN_BUILD_SHARED_LIBS 1)
+    endif()
+    add_subdirectory(.cppan)
+endif()
+
+hunter_add_package(OpenCL)
+find_package(OpenCL QUIET)
+
+option(BUILD_TRAINING_TOOLS "Build training tools" ON)
+
 ###############################################################################
 #
 # compiler and linker
 #
 ###############################################################################
-
-set(LIBRARY_TYPE SHARED)
-if (STATIC)
-    set(LIBRARY_TYPE)
-endif()
 
 if (WIN32)
     if (MSVC)
@@ -262,6 +288,7 @@ endif()
 add_library                     (libtesseract ${LIBRARY_TYPE} ${tesseract_src} ${tesseract_hdr}
     ${tesseract_rsc}
     )
+
 if (NOT STATIC)
 target_compile_definitions      (libtesseract
     PRIVATE -DTESS_EXPORTS
@@ -280,7 +307,7 @@ set_target_properties           (libtesseract PROPERTIES OUTPUT_NAME tesseract)
 endif()
 
 if (NOT CPPAN_BUILD)
-    target_link_libraries       (libtesseract ${Leptonica_LIBRARIES})
+    target_link_libraries       (libtesseract Leptonica::leptonica)
     export(TARGETS libtesseract FILE ${CMAKE_BINARY_DIR}/TesseractTargets.cmake)
 else()
     target_link_libraries       (libtesseract pvt.cppan.demo.danbloomberg.leptonica)
