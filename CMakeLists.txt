@@ -10,6 +10,14 @@
 
 cmake_minimum_required(VERSION 2.8.11)
 
+
+include(cmake/HunterGate.cmake)
+
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.19.7.tar.gz"
+    SHA1 "e83786da74f703099fce44a4c021b5d3e5fc3b41"
+)
+
 if (NOT APPVEYOR)
 if (WIN32 AND (CMAKE_VERSION VERSION_EQUAL 3.6 OR (CMAKE_VERSION VERSION_GREATER 3.6 AND CMAKE_VERSION VERSION_LESS 3.7)))
     message(FATAL_ERROR "You have bugged CMake version 3.6 which is known to not work with tesseract. Please, upgrade CMake.")
@@ -53,12 +61,8 @@ set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
 set(MINIMUM_LEPTONICA_VERSION 1.74)
 
 if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.cppan)
-    if (NOT Leptonica_DIR AND NOT MSVC)
-        find_package(PkgConfig REQUIRED)
-        pkg_check_modules(Leptonica REQUIRED lept>=${MINIMUM_LEPTONICA_VERSION})
-    else()
-        find_package(Leptonica ${MINIMUM_LEPTONICA_VERSION} REQUIRED CONFIG)
-    endif()
+    hunter_add_package(Leptonica)
+    find_package(Leptonica ${MINIMUM_LEPTONICA_VERSION} REQUIRED CONFIG)
 else()
     if (STATIC)
         set(CPPAN_BUILD_SHARED_LIBS 0)
@@ -68,6 +72,7 @@ else()
     add_subdirectory(.cppan)
 endif()
 
+hunter_add_package(OpenCL)
 find_package(OpenCL QUIET)
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
@@ -77,11 +82,6 @@ option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 # compiler and linker
 #
 ###############################################################################
-
-set(LIBRARY_TYPE SHARED)
-if (STATIC)
-    set(LIBRARY_TYPE)
-endif()
 
 if (WIN32)
     if (MSVC)
@@ -211,7 +211,7 @@ set(tesseract_src ${tesseract_src}
     api/pdfrenderer.cpp
 )
 
-add_library                     (libtesseract ${LIBRARY_TYPE} ${tesseract_src} ${tesseract_hdr})
+add_library                     (libtesseract ${tesseract_src} ${tesseract_hdr})
 if (NOT STATIC)
 target_compile_definitions      (libtesseract
     PRIVATE -DTESS_EXPORTS
@@ -228,7 +228,7 @@ set_target_properties           (libtesseract PROPERTIES DEBUG_OUTPUT_NAME tesse
 endif()
 
 if (NOT CPPAN_BUILD)
-    target_link_libraries       (libtesseract ${Leptonica_LIBRARIES})
+    target_link_libraries       (libtesseract Leptonica::leptonica)
     export(TARGETS libtesseract FILE ${CMAKE_BINARY_DIR}/TesseractTargets.cmake)
 else()
     target_link_libraries       (libtesseract pvt.cppan.demo.danbloomberg.leptonica)
