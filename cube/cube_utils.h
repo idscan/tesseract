@@ -26,7 +26,7 @@
 #include <vector>
 #include <string>
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "const.h"
 #include "char_set.h"
 #include "char_samp.h"

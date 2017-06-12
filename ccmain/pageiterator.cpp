@@ -19,7 +19,7 @@
 ///////////////////////////////////////////////////////////////////////
 
 #include "pageiterator.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "helpers.h"
 #include "pageres.h"
 #include "tesseractclass.h"

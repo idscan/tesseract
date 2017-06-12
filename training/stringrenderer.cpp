@@ -27,7 +27,7 @@
 #include <utility>
 #include <vector>
 
-#include "allheaders.h"     // from leptonica
+#include <leptonica/allheaders.h>     // from leptonica
 #include "boxchar.h"
 #include "ligature_table.h"
 #include "normstrngs.h"

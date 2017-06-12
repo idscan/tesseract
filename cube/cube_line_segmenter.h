@@ -27,7 +27,7 @@
 #define CUBE_LINE_SEGMENTER_H
 
 #include "cube_reco_context.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 namespace tesseract {
 

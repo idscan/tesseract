@@ -23,7 +23,7 @@
 #endif
 
 #include "devanagari_processing.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "tordmain.h"
 #include "statistc.h"
 

@@ -19,7 +19,7 @@
 
 #include "scanedg.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "edgloop.h"
 
 #define WHITE_PIX     1          /*thresholded colours */

@@ -24,7 +24,7 @@
 
 #include <iostream>
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "baseapi.h"
 #include "basedir.h"
 #include "dict.h"

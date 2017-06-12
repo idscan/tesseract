@@ -37,7 +37,7 @@
 #include "lang_model.h"
 #include "cube_utils.h"
 #include "cube_reco_context.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 namespace tesseract {
 

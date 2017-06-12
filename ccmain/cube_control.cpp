@@ -22,7 +22,7 @@
 #include "config_auto.h"
 #endif
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 #include "cube_object.h"
 #include "cube_reco_context.h"

@@ -21,7 +21,7 @@
 
 #include <stdlib.h>
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "blobs.h"
 #include "helpers.h"
 #include "matrix.h"

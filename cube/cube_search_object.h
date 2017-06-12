@@ -35,7 +35,7 @@
 #include "char_samp.h"
 #include "conv_net_classifier.h"
 #include "cube_reco_context.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 namespace tesseract {
 class CubeSearchObject : public SearchObject {

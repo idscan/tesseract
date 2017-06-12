@@ -36,7 +36,7 @@
 #include "textord.h"
 #include "tordmain.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 #undef EXTERN
 #define EXTERN

@@ -26,7 +26,7 @@
 
 #include "cube_reco_context.h"
 #include "cube_object.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 namespace tesseract {
 class CubeLineObject {

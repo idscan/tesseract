@@ -21,7 +21,7 @@
 
 #include "resultiterator.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "pageres.h"
 #include "strngs.h"
 #include "tesseractclass.h"
