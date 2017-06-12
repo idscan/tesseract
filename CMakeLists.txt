@@ -76,6 +76,7 @@ hunter_add_package(OpenCL)
 find_package(OpenCL QUIET)
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
+option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
 
 ###############################################################################
 #
@@ -212,7 +213,7 @@ set(tesseract_src ${tesseract_src}
 )
 
 add_library                     (libtesseract ${tesseract_src} ${tesseract_hdr})
-if (NOT STATIC)
+if (BUILD_SHARED_LIBS)
 target_compile_definitions      (libtesseract
     PRIVATE -DTESS_EXPORTS
     INTERFACE -DTESS_IMPORTS
@@ -245,8 +246,11 @@ set(tesseractmain_src
     vs2010/tesseract/resource.h
     vs2010/tesseract/tesseract.rc
 )
-add_executable                  (tesseract ${tesseractmain_src})
-target_link_libraries           (tesseract libtesseract)
+
+if(Tesseract_BUILD_EXE)
+    add_executable                  (tesseract ${tesseractmain_src})
+    target_link_libraries           (tesseract libtesseract)
+endif()
 
 ########################################
 
@@ -259,13 +263,15 @@ get_target_property(tesseract_VERSION libtesseract VERSION)
 get_target_property(tesseract_OUTPUT_NAME libtesseract OUTPUT_NAME)
 configure_file(tesseract.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/tesseract.pc @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/tesseract.pc DESTINATION lib/pkgconfig)
-install(TARGETS tesseract RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
-install(TARGETS libtesseract EXPORT TesseractTargets RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
-install(EXPORT TesseractTargets DESTINATION cmake)
+if(Tesseract_BUILD_EXE)
+    install(TARGETS tesseract RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
+endif()
+install(TARGETS libtesseract EXPORT TesseractTargets RUNTIME DESTINATION bin LIBRARY DESTINATION lib ARCHIVE DESTINATION lib INCLUDES DESTINATION include)
+install(EXPORT TesseractTargets NAMESPACE "Tesseract::" DESTINATION lib/cmake/${PROJECT_NAME})
 install(FILES
     ${CMAKE_BINARY_DIR}/TesseractConfig.cmake
     ${CMAKE_BINARY_DIR}/TesseractConfig-version.cmake
-    DESTINATION cmake)
+    DESTINATION lib/cmake/${PROJECT_NAME})
 
 install(FILES
     # from api/makefile.am
