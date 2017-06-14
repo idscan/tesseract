@@ -80,7 +80,7 @@ else()
 endif()
 
 hunter_add_package(OpenCL)
-find_package(OpenCL QUIET)
+find_package(OpenCL CONFIG REQUIRED)
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
