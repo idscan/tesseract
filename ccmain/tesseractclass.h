@@ -26,7 +26,7 @@
 #ifndef TESSERACT_CCMAIN_TESSERACTCLASS_H__
 #define TESSERACT_CCMAIN_TESSERACTCLASS_H__
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "control.h"
 #include "docqual.h"
 #include "devanagari_processing.h"

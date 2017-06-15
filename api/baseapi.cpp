@@ -47,7 +47,7 @@
 #include <iterator>
 #include <fstream>
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 #include "baseapi.h"
 #include "blobclass.h"

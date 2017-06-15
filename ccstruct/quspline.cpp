@@ -17,7 +17,7 @@
  *
  **********************************************************************/
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "memry.h"
 #include "quadlsq.h"
 #include "quspline.h"

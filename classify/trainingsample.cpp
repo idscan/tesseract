@@ -21,7 +21,7 @@
 #include "trainingsample.h"
 
 #include <math.h>
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "helpers.h"
 #include "intfeaturemap.h"
 #include "normfeat.h"

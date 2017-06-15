@@ -24,7 +24,7 @@
 
 #include "coutln.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "blobs.h"
 #include "normalis.h"
 

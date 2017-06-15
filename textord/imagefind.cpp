@@ -33,7 +33,7 @@
 #include "statistc.h"
 #include "params.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 INT_VAR(textord_tabfind_show_images, false, "Show image blobs");
 

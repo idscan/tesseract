@@ -12,8 +12,8 @@
 #define TESSERACT_OPENCL_OPENCLWRAPPER_H_
 
 #include <stdio.h>
-#include "allheaders.h"
-#include "pix.h"
+#include <leptonica/allheaders.h>
+#include <leptonica/pix.h>
 #include "tprintf.h"
 
 // including CL/cl.h doesn't occur until USE_OPENCL defined below

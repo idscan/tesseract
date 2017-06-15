@@ -18,7 +18,7 @@
  **********************************************************************/
 
 #include          <stdlib.h>
-#include          "allheaders.h"
+#include          <leptonica/allheaders.h>
 #include          "blckerr.h"
 #include          "pdblock.h"
 

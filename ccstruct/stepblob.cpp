@@ -18,7 +18,7 @@
  **********************************************************************/
 
 #include "stepblob.h"
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 // Include automatically generated configuration file if running autoconf.
 #ifdef HAVE_CONFIG_H

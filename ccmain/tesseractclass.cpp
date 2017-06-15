@@ -41,7 +41,7 @@
 
 #include "tesseractclass.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #ifndef NO_CUBE_BUILD
 #include "cube_reco_context.h"
 #endif

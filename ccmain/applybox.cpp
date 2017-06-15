@@ -27,7 +27,7 @@
 #include <assert.h>
 #include <errno.h>
 #endif
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "boxread.h"
 #include "chopper.h"
 #include "pageres.h"

@@ -24,7 +24,7 @@
 
 #include "imagedata.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "boxread.h"
 #include "callcpp.h"
 #include "helpers.h"

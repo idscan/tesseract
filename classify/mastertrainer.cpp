@@ -27,7 +27,7 @@
 #include "mastertrainer.h"
 #include <math.h>
 #include <time.h>
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 #include "boxread.h"
 #include "classify.h"
 #include "efio.h"

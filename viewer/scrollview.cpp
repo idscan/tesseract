@@ -48,7 +48,7 @@ const int kMaxIntPairSize = 45;  // Holds %d,%d, for up to 64 bit.
 
 #include "svutil.h"
 
-#include "allheaders.h"
+#include <leptonica/allheaders.h>
 
 struct SVPolyLineBuffer {
   bool empty;  // Independent indicator to allow SendMsg to call SendPolygon.

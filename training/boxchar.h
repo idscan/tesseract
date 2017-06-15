@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 
-#include "allheaders.h"  // from Leptonica
+#include <leptonica/allheaders.h>  // from Leptonica
 
 #ifdef USE_STD_NAMESPACE
 using std::string;
