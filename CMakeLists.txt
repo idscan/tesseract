@@ -72,11 +72,10 @@ else()
     add_subdirectory(.cppan)
 endif()
 
-hunter_add_package(OpenCL)
-find_package(OpenCL CONFIG REQUIRED)
-
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
+option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" ON)
+
 
 ###############################################################################
 #
@@ -142,8 +141,6 @@ add_definitions(-DHAVE_CONFIG_H)
 add_definitions(-D_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS=1)
 add_definitions(-DUSE_STD_NAMESPACE=1)
 add_definitions(-DWINDLLNAME="libtesseract${VERSION_MAJOR}${VERSION_MINOR}.dll")
-
-include_directories(${Leptonica_INCLUDE_DIRS})
 
 include_directories(${CMAKE_BINARY_DIR})
 
@@ -220,7 +217,18 @@ target_compile_definitions      (libtesseract
 )
 set_target_properties           (libtesseract PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS True)
 endif()
-target_link_libraries           (libtesseract ${LIB_Ws2_32} ${LIB_pthread})
+if (Tesseract_USE_OPENCL)
+    target_compile_definitions  (libtesseract PRIVATE USE_OPENCL=1)
+    if (APPLE)
+        # Inbuilt to NDK
+        find_package(OpenCL REQUIRED)
+    else()
+        hunter_add_package(OpenCL)
+        find_package(OpenCL CONFIG REQUIRED)
+    endif()
+    target_link_libraries       (libtesseract PUBLIC OpenCL::OpenCL)
+endif()
+target_link_libraries           (libtesseract PUBLIC ${LIB_Ws2_32} ${LIB_pthread})
 set_target_properties           (libtesseract PROPERTIES VERSION ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 set_target_properties           (libtesseract PROPERTIES SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 if (WIN32)
@@ -229,7 +237,7 @@ set_target_properties           (libtesseract PROPERTIES DEBUG_OUTPUT_NAME tesse
 endif()
 
 if (NOT CPPAN_BUILD)
-    target_link_libraries       (libtesseract Leptonica::leptonica)
+    target_link_libraries       (libtesseract PUBLIC Leptonica::leptonica)
     export(TARGETS libtesseract FILE ${CMAKE_BINARY_DIR}/TesseractTargets.cmake)
 else()
     target_link_libraries       (libtesseract pvt.cppan.demo.danbloomberg.leptonica)
