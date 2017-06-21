@@ -87,11 +87,10 @@ else()
     add_subdirectory(.cppan)
 endif()
 
-hunter_add_package(OpenCL)
-find_package(OpenCL CONFIG REQUIRED)
-
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
+option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" ON)
+
 
 ###############################################################################
 #
@@ -386,7 +385,8 @@ add_definitions(-D_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS=1)
 include_directories(${Leptonica_INCLUDE_DIRS})
 include_directories(${LibArchive_INCLUDE_DIRS})
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_BINARY_DIR})
+
 include_directories(src/api)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/api)
 include_directories(src/arch)
@@ -497,6 +497,17 @@ target_compile_definitions      (libtesseract
     INTERFACE -DTESS_IMPORTS
 )
 set_target_properties           (libtesseract PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS True)
+endif()
+if (Tesseract_USE_OPENCL)
+    target_compile_definitions  (libtesseract PRIVATE USE_OPENCL=1)
+    if (APPLE)
+        # Inbuilt to NDK
+        find_package(OpenCL REQUIRED)
+    else()
+        hunter_add_package(OpenCL)
+        find_package(OpenCL CONFIG REQUIRED)
+    endif()
+    target_link_libraries       (libtesseract PUBLIC OpenCL::OpenCL)
 endif()
 target_link_libraries           (libtesseract PRIVATE ${LIB_Ws2_32} ${LIB_pthread})
 set_target_properties           (libtesseract PROPERTIES VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
