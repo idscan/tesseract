@@ -87,11 +87,10 @@ else()
     add_subdirectory(.cppan)
 endif()
 
-hunter_add_package(OpenCL)
-find_package(OpenCL CONFIG REQUIRED)
-
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
+option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" ON)
+
 
 ###############################################################################
 #
