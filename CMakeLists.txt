@@ -108,7 +108,10 @@ endif()
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
 
-    set(LIB_pthread pthread)
+    set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+    set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+    find_package(Threads REQUIRED)
+    set(LIB_pthread Threads::Threads)
 endif()
 
 ###############################################################################
