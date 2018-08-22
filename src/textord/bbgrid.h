@@ -28,7 +28,7 @@
 #include "rect.h"
 #include "scrollview.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 
 class BLOCK;
 

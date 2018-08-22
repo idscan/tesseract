@@ -41,7 +41,7 @@
 
 #include "tesseractclass.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "edgblob.h"
 #include "equationdetect.h"
 #include "globals.h"

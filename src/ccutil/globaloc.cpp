@@ -23,7 +23,7 @@
 #include <sys/syscall.h>   // For SYS_gettid.
 #include <unistd.h>        // For syscall itself.
 #endif
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "errcode.h"
 #include "tprintf.h"
 

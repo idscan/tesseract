@@ -21,7 +21,7 @@
 #endif
 
 #include <memory>  // std::unique_ptr
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "math.h"
 #include "renderer.h"

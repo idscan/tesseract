@@ -29,7 +29,7 @@
 #include "edgblob.h"
 #include "openclwrapper.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 
 #include <algorithm>
 

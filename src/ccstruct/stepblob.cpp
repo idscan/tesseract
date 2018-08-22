@@ -23,7 +23,7 @@
 #endif
 
 #include "stepblob.h"
-#include "allheaders.h"     // for pixCreate, pixGetDepth
+#include "leptonica/allheaders.h"     // for pixCreate, pixGetDepth
 #include "genericvector.h"  // for GenericVector
 #include "host.h"           // for TRUE, FALSE
 #include "ipoints.h"        // for operator+=

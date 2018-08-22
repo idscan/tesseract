@@ -51,7 +51,7 @@
 #include <memory>              // for std::unique_ptr
 #include <set>                 // for std::pair
 #include <vector>              // for std::vector
-#include "allheaders.h"        // for pixDestroy, boxCreate, boxaAddBox, box...
+#include "leptonica/allheaders.h"        // for pixDestroy, boxCreate, boxaAddBox, box...
 #include "blobclass.h"         // for ExtractFontName
 #include "boxword.h"           // for BoxWord
 #include "config_auto.h"       // for PACKAGE_VERSION

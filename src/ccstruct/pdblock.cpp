@@ -20,7 +20,7 @@
 #include "pdblock.h"
 #include <cstdlib>
 #include <memory>  // std::unique_ptr
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 
 // Include automatically generated configuration file if running autoconf.
 #ifdef HAVE_CONFIG_H

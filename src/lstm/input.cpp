@@ -18,7 +18,7 @@
 
 #include "input.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "imagedata.h"
 #include "pageres.h"
 #include "scrollview.h"

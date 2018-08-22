@@ -25,7 +25,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 
 #include "colpartitionset.h"
 #include "tablerecog.h"

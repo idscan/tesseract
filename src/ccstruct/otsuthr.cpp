@@ -20,7 +20,7 @@
 #include "otsuthr.h"
 
 #include <cstring>
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "helpers.h"
 #include "openclwrapper.h"
 

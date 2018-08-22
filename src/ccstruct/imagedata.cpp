@@ -30,7 +30,7 @@
 #include <thread>
 #endif
 
-#include "allheaders.h"  // for pixDestroy, pixGetHeight, pixGetWidth, lept_...
+#include "leptonica/allheaders.h"  // for pixDestroy, pixGetHeight, pixGetWidth, lept_...
 #include "boxread.h"     // for ReadMemBoxes
 #include "callcpp.h"     // for window_wait
 #include "helpers.h"     // for IntCastRounded, TRand, ClipToRange, Modulo

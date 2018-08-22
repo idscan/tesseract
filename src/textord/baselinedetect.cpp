@@ -30,7 +30,7 @@
 #include <algorithm>
 #include <cfloat>      // for FLT_MAX
 #include <cmath>
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "blobbox.h"
 #include "detlinefit.h"
 #include "drawtord.h"

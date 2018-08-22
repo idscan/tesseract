@@ -28,7 +28,7 @@
 
 #include <cstdint>                  // for int16_t, int32_t, uint16_t
 #include <cstdio>                   // for FILE
-#include "allheaders.h"             // for pixDestroy, pixGetWidth, pixGetHe...
+#include "leptonica/allheaders.h"             // for pixDestroy, pixGetWidth, pixGetHe...
 #include "control.h"                // for ACCEPTABLE_WERD_TYPE
 #include "debugpixa.h"              // for DebugPixa
 #include "devanagari_processing.h"  // for ShiroRekhaSplitter

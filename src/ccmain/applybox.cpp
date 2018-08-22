@@ -20,7 +20,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <cstring>
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "boxread.h"
 #ifndef DISABLED_LEGACY_ENGINE
 #include "chopper.h"

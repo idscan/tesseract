@@ -25,7 +25,7 @@
 #include "mastertrainer.h"
 #include <cmath>
 #include <ctime>
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "boxread.h"
 #include "classify.h"
 #include "errorcounter.h"

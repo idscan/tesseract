@@ -20,7 +20,7 @@
 
 #include "tfnetwork.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "input.h"
 #include "networkscratch.h"
 
