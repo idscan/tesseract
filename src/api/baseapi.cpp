@@ -64,10 +64,11 @@
 #include "edgblob.h"           // for extract_edges
 #include "elst.h"              // for ELIST_ITERATOR, ELISTIZE, ELISTIZEH
 #include "environ.h"           // for l_uint8
+#include "leptonica/environ.h"           // for l_uint8, FALSE, TRUE
 #include "equationdetect.h"    // for EquationDetect
 #include "errcode.h"           // for ASSERT_HOST
 #include "helpers.h"           // for IntCastRounded, chomp_string
-#include "imageio.h"           // for IFF_TIFF_G4, IFF_TIFF, IFF_TIFF_G3, ...
+#include "leptonica/imageio.h"           // for IFF_TIFF_G4, IFF_TIFF, IFF_TIFF_G3, ...
 #ifndef DISABLED_LEGACY_ENGINE
 #include "intfx.h"             // for INT_FX_RESULT_STRUCT
 #endif
