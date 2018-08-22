@@ -22,7 +22,7 @@
 #endif
 
 #include "stepblob.h"
-#include "allheaders.h"     // for pixCreate, pixGetDepth
+#include "leptonica/allheaders.h"     // for pixCreate, pixGetDepth
 #include "genericvector.h"  // for GenericVector
 #include "points.h"         // for operator+=, FCOORD, ICOORD
 

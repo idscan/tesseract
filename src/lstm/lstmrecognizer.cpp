@@ -23,7 +23,7 @@
 
 #include "lstmrecognizer.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "callcpp.h"
 #include "dict.h"
 #include "genericheap.h"

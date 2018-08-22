@@ -36,7 +36,7 @@
 #include <utility>
 #include <vector>
 
-#include "allheaders.h"  // from leptonica
+#include "leptonica/allheaders.h"  // from leptonica
 #include "boxchar.h"
 #include "commandlineflags.h"
 #include "commontraining.h"     // CheckSharedLibraryVersion

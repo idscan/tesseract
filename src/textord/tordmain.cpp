@@ -25,7 +25,7 @@
 #include <cfloat>               // for FLT_MAX
 #include <cmath>                // for ceil, floor, M_PI
 #include <cstdint>              // for INT16_MAX, uint32_t, int32_t, int16_t
-#include "allheaders.h"         // for pixDestroy, pixGetHeight, boxCreate
+#include "leptonica/allheaders.h"         // for pixDestroy, pixGetHeight, boxCreate
 #include "arrayaccess.h"        // for GET_DATA_BYTE
 #include "blobbox.h"            // for BLOBNBOX_IT, BLOBNBOX, TO_BLOCK, TO_B...
 #include "ccstruct.h"           // for CCStruct, CCStruct::kXHeightFraction

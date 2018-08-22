@@ -24,7 +24,7 @@
 #include <cerrno>               // for errno
 #include <iostream>
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "dict.h"
 #if defined(USE_OPENCL)

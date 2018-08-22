@@ -20,7 +20,7 @@
 
 #include <memory>  // std::unique_ptr
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "edgloop.h"
 
 #define WHITE_PIX     1          /*thresholded colours */
