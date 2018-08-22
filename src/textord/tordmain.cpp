@@ -26,7 +26,7 @@
 #include <cmath>                // for ceil, floor, M_PI
 #include <cstdint>              // for INT16_MAX, uint32_t, int32_t, int16_t
 #include "leptonica/allheaders.h"         // for pixDestroy, pixGetHeight, boxCreate
-#include "arrayaccess.h"        // for GET_DATA_BYTE
+#include "leptonica/arrayaccess.h"        // for GET_DATA_BYTE
 #include "blobbox.h"            // for BLOBNBOX_IT, BLOBNBOX, TO_BLOCK, TO_B...
 #include "ccstruct.h"           // for CCStruct, CCStruct::kXHeightFraction
 #include "clst.h"               // for CLISTIZE
@@ -36,7 +36,7 @@
 #include "errcode.h"            // for set_global_loc_code, ASSERT_HOST, LOC...
 #include "genericvector.h"      // for PointerVector, GenericVector
 #include "makerow.h"            // for textord_test_x, textord_test_y, texto...
-#include "morph.h"              // for L_BOUNDARY_BG
+#include "leptonica/morph.h"              // for L_BOUNDARY_BG
 #include "ocrblock.h"           // for BLOCK_IT, BLOCK, BLOCK_LIST (ptr only)
 #include "ocrrow.h"             // for ROW, ROW_IT, ROW_LIST, tweak_row_base...
 #include "params.h"             // for DoubleParam, BoolParam, IntParam

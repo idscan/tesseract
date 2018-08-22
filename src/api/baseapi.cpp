@@ -60,13 +60,13 @@
 #include "dict.h"              // for Dict
 #include "edgblob.h"           // for extract_edges
 #include "elst.h"              // for ELIST_ITERATOR, ELISTIZE, ELISTIZEH
-#include "environ.h"           // for l_uint8, FALSE, TRUE
+#include "leptonica/environ.h"           // for l_uint8, FALSE, TRUE
 #include "equationdetect.h"    // for EquationDetect
 #include "errcode.h"           // for ASSERT_HOST
 #include "globaloc.h"          // for SavePixForCrash, signal_exit
 #include "helpers.h"           // for IntCastRounded, chomp_string
 #include "host.h"              // for BOOL8
-#include "imageio.h"           // for IFF_TIFF_G4, IFF_TIFF, IFF_TIFF_G3
+#include "leptonica/imageio.h"           // for IFF_TIFF_G4, IFF_TIFF, IFF_TIFF_G3
 #include "intfx.h"             // for INT_FX_RESULT_STRUCT
 #include "mutableiterator.h"   // for MutableIterator
 #include "normalis.h"          // for kBlnBaselineOffset, kBlnXHeight
