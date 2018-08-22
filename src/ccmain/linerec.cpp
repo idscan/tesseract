@@ -18,7 +18,7 @@
 
 #include "tesseractclass.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "boxread.h"
 #include "imagedata.h"
 #ifndef ANDROID_BUILD

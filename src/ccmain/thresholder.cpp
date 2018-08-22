@@ -16,7 +16,7 @@
 //
 ///////////////////////////////////////////////////////////////////////
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 
 #include "thresholder.h"
 
