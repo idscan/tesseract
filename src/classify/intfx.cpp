@@ -21,7 +21,7 @@
 #define _USE_MATH_DEFINES       // for M_PI
 #include "intfx.h"
 #include <cmath>                // for M_PI
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "ccutil.h"
 #include "classify.h"
 #include "helpers.h"

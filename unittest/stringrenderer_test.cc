@@ -14,7 +14,7 @@
 
 #include "absl/strings/str_split.h"  // for absl::StrSplit
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "boxchar.h"
 #include "boxread.h"
 #include "commandlineflags.h"

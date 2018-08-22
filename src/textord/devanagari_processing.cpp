@@ -22,7 +22,7 @@
 #include "config_auto.h"
 #endif
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "debugpixa.h"
 #include "devanagari_processing.h"
 #include "statistc.h"

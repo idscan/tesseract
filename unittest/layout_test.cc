@@ -14,7 +14,7 @@
 
 #include "include_gunit.h"
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "coutln.h"
 #include "log.h"                        // for LOG

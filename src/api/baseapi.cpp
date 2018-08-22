@@ -52,7 +52,7 @@
 #ifdef HAVE_LIBCURL
 #include <curl/curl.h>
 #endif
-#include "allheaders.h"        // for pixDestroy, boxCreate, boxaAddBox, box...
+#include "leptonica/allheaders.h"        // for pixDestroy, boxCreate, boxaAddBox, box...
 #ifndef DISABLED_LEGACY_ENGINE
 #include "blobclass.h"         // for ExtractFontName
 #endif

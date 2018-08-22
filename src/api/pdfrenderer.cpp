@@ -23,7 +23,7 @@
 #include <locale>  // for std::locale::classic
 #include <memory>  // std::unique_ptr
 #include <sstream> // for std::stringstream
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include <cmath>
 #include "renderer.h"

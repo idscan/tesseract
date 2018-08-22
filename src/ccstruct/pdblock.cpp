@@ -16,7 +16,7 @@
  *
  **********************************************************************/
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "pdblock.h"
 #include <cstdlib>
 #include <memory>  // std::unique_ptr

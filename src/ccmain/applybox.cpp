@@ -19,7 +19,7 @@
 #include <cctype>
 #include <cerrno>
 #include <cstring>
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "boxread.h"
 #include "pageres.h"
 #include "unichar.h"

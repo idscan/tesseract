@@ -9,7 +9,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "lstm_test.h"
 

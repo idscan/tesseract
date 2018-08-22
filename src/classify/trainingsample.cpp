@@ -22,7 +22,7 @@
 #include "trainingsample.h"
 
 #include <cmath>                // for M_PI
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "helpers.h"
 #include "intfeaturemap.h"
 #include "normfeat.h"

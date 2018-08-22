@@ -17,7 +17,7 @@
  **********************************************************************/
 
 #include "globaloc.h"
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "errcode.h"
 #include "tprintf.h"
 

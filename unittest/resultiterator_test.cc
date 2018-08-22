@@ -1,7 +1,7 @@
 
 #include "resultiterator.h"
 #include <string>
-#include "allheaders.h"
+#include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "genericvector.h"
 #include "scrollview.h"

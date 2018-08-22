@@ -24,7 +24,7 @@
 #include "blobbox.h"
 #include <algorithm>     // for max, min
 #include <cstdint>       // for INT32_MAX, INT16_MAX
-#include "allheaders.h"  // for pixGetHeight, pixGetPixel
+#include "leptonica/allheaders.h"  // for pixGetHeight, pixGetPixel
 #include "blobs.h"       // for TPOINT
 #include "coutln.h"      // for C_OUTLINE_IT, C_OUTLINE, C_OUTLINE_LIST
 #include "environ.h"     // for l_uint32
