@@ -186,6 +186,12 @@ add_definitions(-DHAVE_CONFIG_H)
 add_definitions(-D_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS=1)
 add_definitions(-DWINDLLNAME="libtesseract${VERSION_MAJOR}${VERSION_MINOR}.dll")
 
+if (ANDROID)
+    add_definitions(-D__STDC_LIMIT_MACROS)
+    add_definitions(-D__STDC_CONSTANT_MACROS)
+endif()
+
+
 include_directories(${CMAKE_BINARY_DIR})
 
 include_directories(src/api)
