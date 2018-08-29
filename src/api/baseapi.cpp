@@ -42,7 +42,6 @@
 #include <unistd.h>
 #endif  // _WIN32
 
-#include <clocale>             // for LC_ALL, LC_CTYPE, LC_NUMERIC
 #include <cmath>               // for round, M_PI
 #include <cstdint>             // for int32_t
 #include <cstring>             // for strcmp, strcpy
@@ -197,15 +196,7 @@ TessBaseAPI::TessBaseAPI()
       rect_width_(0),
       rect_height_(0),
       image_width_(0),
-      image_height_(0) {
-  const char *locale;
-  locale = std::setlocale(LC_ALL, nullptr);
-  ASSERT_HOST(!strcmp(locale, "C"));
-  locale = std::setlocale(LC_CTYPE, nullptr);
-  ASSERT_HOST(!strcmp(locale, "C"));
-  locale = std::setlocale(LC_NUMERIC, nullptr);
-  ASSERT_HOST(!strcmp(locale, "C"));
-}
+      image_height_(0) {}
 
 TessBaseAPI::~TessBaseAPI() {
   End();
