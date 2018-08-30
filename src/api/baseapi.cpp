@@ -256,6 +256,11 @@ void TessBaseAPI::CatchSignals() {
 #endif
 }
 
+/** Reset Tesseract parameters to default values. */
+void TessBaseAPI::ResetVariables() {
+    ParamUtils::ResetToDefaults(tesseract_->params());
+}
+
 /**
  * Set the name of the input file. Needed only for training and
  * loading a UNLV zone file.

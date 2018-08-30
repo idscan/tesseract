@@ -181,6 +181,11 @@ class TESS_API TessBaseAPI {
   void PrintVariables(FILE *fp) const;
 
   /**
+   * Reset Tesseract parameters to default values.
+   */
+  void ResetVariables();
+
+  /**
    * Get value of named variable as a string, if it exists.
    */
   bool GetVariableAsString(const char *name, STRING *val);
