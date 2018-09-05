@@ -481,6 +481,8 @@ Tesseract::Tesseract()
       BOOL_MEMBER(poly_allow_detailed_fx, false,
                   "Allow feature extractors to see the original outline",
                   this->params()),
+      BOOL_MEMBER(enable_new_segsearch, true,
+                  "Enable new segmentation search path.", this->params()),
       BOOL_INIT_MEMBER(tessedit_init_config_only, false,
                        "Only initialize with the config file. Useful if the "
                        "instance is not going to be used for OCR but say only "
