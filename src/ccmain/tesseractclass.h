@@ -989,6 +989,8 @@ class Tesseract : public Wordrec {
                "Maximum top of a character measured as a multiple of x-height "
                "above the baseline for us to reconsider whether it's a "
                "subscript.");
+  BOOL_VAR_H(enable_new_segsearch, false,
+              "Enable new segmentation search path.");
   double_VAR_H(superscript_min_y_bottom, 0.3,
                "Minimum bottom of a character measured as a multiple of "
                "x-height above the baseline for us to reconsider whether it's "
