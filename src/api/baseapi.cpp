@@ -1184,6 +1184,11 @@ bool TessBaseAPI::ProcessPage(Pix* pix, int page_index, const char* filename,
   PERF_COUNT_START("ProcessPage")
   SetInputName(filename);
   SetImage(pix);
+  if (filename != nullptr) {
+      if (renderer != nullptr) {
+          renderer = new tesseract::TessTextRenderer(filename);
+      }
+  }
   bool failed = false;
 
   if (tesseract_->tessedit_pageseg_mode == PSM_AUTO_ONLY) {
