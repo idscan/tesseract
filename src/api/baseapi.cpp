@@ -1015,13 +1015,13 @@ bool TessBaseAPI::ProcessPagesFileList(FILE *flist,
     Pix *pix = pixRead(pagename);
     if (pix == nullptr) {
       tprintf("Image file %s cannot be read!\n", pagename);
-      return false;
+      ++page;
+      continue;
     }
     tprintf("Page %d : %s\n", page, pagename);
     bool r = ProcessPage(pix, page, pagename, retry_config,
                          timeout_millisec, renderer);
     pixDestroy(&pix);
-    if (!r) return false;
     if (tessedit_page_number >= 0) break;
     ++page;
   }
