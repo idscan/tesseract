@@ -1186,6 +1186,7 @@ bool TessBaseAPI::ProcessPage(Pix* pix, int page_index, const char* filename,
   SetImage(pix);
   if (filename != nullptr) {
       if (renderer != nullptr) {
+          renderer->~TessResultRenderer();
           renderer = new tesseract::TessTextRenderer(filename);
       }
   }

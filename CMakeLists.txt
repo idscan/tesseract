@@ -276,6 +276,9 @@ if (WIN32)
         set_source_files_properties(
             ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
             PROPERTIES COMPILE_FLAGS "/arch:AVX2")
+        set_source_files_properties(
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
+            PROPERTIES COMPILE_DEFINITIONS __AVX2__)
     endif()
 else()
     if(NOT CMAKE_ANDROID_ARCH_ABI STREQUAL "armeabi-v7a")
@@ -291,6 +294,9 @@ else()
         set_source_files_properties(
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
                 PROPERTIES COMPILE_FLAGS "-mavx2")
+        set_source_files_properties(
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
+                PROPERTIES COMPILE_DEFINITIONS __AVX2__)
     endif()
 endif()
 
