@@ -41,6 +41,8 @@ bool SIMDDetect::avx512F_available_;
 bool SIMDDetect::avx512BW_available_;
 // If true, then SSe4.1 has been detected.
 bool SIMDDetect::sse_available_;
+// If true, then neon has been detected.
+bool SIMDDetect::neon_available_;
 
 // Constructor.
 // Tests the architecture in a system-dependent way to detect AVX, SSE and
@@ -77,5 +79,7 @@ SIMDDetect::SIMDDetect() {
 #else
 #error "I don't know how to test for SIMD with this compiler"
 #endif
-#endif  // X86_BUILD
+#elif defined(__arm__) || defined(__aarch64__)
+    neon_available_ = true;
+#endif
 }

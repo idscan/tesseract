@@ -20,6 +20,7 @@
 #include "genericvector.h"      // for GenericVector
 #include "intsimdmatrixavx2.h"  // for IntSimdMatrixAVX2
 #include "intsimdmatrixsse.h"   // for IntSimdMatrixSSE
+#include "intsimdmatrixneon.h"  // for IntSimdMatrixNEON
 #include "matrix.h"             // for GENERIC_2D_ARRAY
 #include "simddetect.h"         // for SIMDDetect
 
@@ -34,6 +35,8 @@ IntSimdMatrix* IntSimdMatrix::GetFastestMultiplier() {
     multiplier = new IntSimdMatrixAVX2();
   } else if (SIMDDetect::IsSSEAvailable()) {
     multiplier = new IntSimdMatrixSSE();
+  } else if (SIMDDetect::IsNEONAvailable()) {
+    multiplier = new IntSimdMatrixNEON();
   } else {
     // Default c++ implementation.
     multiplier = new IntSimdMatrix();
