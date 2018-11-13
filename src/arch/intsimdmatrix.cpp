@@ -90,13 +90,52 @@ void IntSimdMatrix::Init(const GENERIC_2D_ARRAY<int8_t>& w) {
     }
   }
 }
-
-void foo(Eigen::Vector4i& u, Eigen::Vector4i& v, Eigen::Vector4i& w) {
-        EIGEN_ASM_COMMENT("Salut");
-        u = v + 3*w;
-        EIGEN_ASM_COMMENT("end");
-}
-    
+//
+// void dotprod_rrrf_run(int8_t *      _h,
+//                          int8_t *      _x,
+//                          unsigned int _n,
+//                          int *      _y)
+//    {
+//        int8x8x4_t x;   // input vector
+//        int8x8x4_t h;   // coefficients vector
+//        int16x8x4_t p; // product
+//        int64 s;   // dot product
+//        
+//        // load zeros into sum register
+//        static const int zeros[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//        int32x4x4_t_t sum = vld1q_(zeros);
+//        
+//        // t = 32*(floor(_n/32))
+//        unsigned int t = (_n >> 5) << 5;
+//        
+//        //
+//        unsigned int i;
+//        for (i=0; i<t; i+=4) {
+//            // load inputs into register (unaligned)
+//            v = vld1q_f32(&_x[i]);
+//            
+//            // load coefficients into register (aligned)
+//            h = vld1q_f32(&_h[i]);
+//            
+//            // compute multiplication
+//            s = vmulq_f32(h,v);
+//            
+//            // parallel addition
+//            sum = vaddq_f32(sum, s);
+//        }
+//        
+//        // unload packed array
+//        float w[4];
+//        vst1q_f32(w, sum);
+//        float total = w[0] + w[1] + w[2] + w[3];
+//        
+//        // cleanup
+//        for (; i<_n; i++)
+//            total += _x[i] * _h[i];
+//        
+//        // set return value
+//        *_y = total;
+//    }
 
 // Computes matrix.vector v = Wu.
 // u is of size W.dim2() - 1 and the output v is of size W.dim1().
@@ -107,42 +146,8 @@ void IntSimdMatrix::MatrixDotVector(const GENERIC_2D_ARRAY<int8_t>& w,
                                     const GenericVector<double>& scales,
                                     const int8_t* u, double* v) const {
   int num_out = w.dim1();
-  const int num_in = w.dim2() - 1;
-  auto start_eig = std::chrono::high_resolution_clock::now();
-
-  int8_t* ptr = const_cast<int8_t*>(u);
-  Eigen::Map<Eigen::Matrix<int8_t, Eigen::Dynamic, 1>> u_eig(ptr, num_in);
-  
-  int8_t* ptr_w = const_cast<int8_t*>(&w[0][0]);
-    Eigen::Map<Eigen::Matrix<int8_t, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>> w_eig(ptr_w, w.dim1(), w.dim2());
-  
-  auto w_eig_cropped = w_eig.block(0, 0, w.dim1(), w.dim2() -1) ;
-  
-  Eigen::Matrix<int, Eigen::Dynamic, 1> v_eig_int;
-   auto w_eig_cropped_int = w_eig_cropped.cast<int>();
-   auto u_eig_int = u_eig.cast<int>();
-  EIGEN_ASM_COMMENT("HERE BEGIN");
-  v_eig_int = w_eig_cropped_int * u_eig_int;
-  EIGEN_ASM_COMMENT("HERE END");
-  Eigen::Matrix<double, Eigen::Dynamic, 1> v_eig =  v_eig_int.cast<double>() / INT8_MAX;
-  v_eig += w_eig.block(0, w.dim2() -1, w.dim1(), 1).cast<double>();
-  
-  double* ptr_scales = const_cast<double*>(&scales[0]);
-  Eigen::Map<Eigen::VectorXd> scales_eig(ptr_scales, scales.size());
-  v_eig.array() *= scales_eig.array();
-  
-  //double *v_copy = static_cast<double *>(std::malloc(sizeof(double) * w.dim1()));
-    
-  Eigen::Map<Eigen::VectorXd>(v, v_eig.rows(), v_eig.cols() ) =  v_eig;
-  
-  auto finish_eig = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> elapsed_eig = finish_eig - start_eig;
-  static float processing_time_eig = 0.f;
-  processing_time_eig += elapsed_eig.count();
-//  std::cout << "Eig processing_time " << processing_time_eig << std::endl;
-  return;
-
-  if (true) {
+  int num_in = w.dim2() - 1;
+  if (partial_funcs_.empty()) {
     // Base implementation.
     auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < num_out; ++i) {
@@ -150,17 +155,9 @@ void IntSimdMatrix::MatrixDotVector(const GENERIC_2D_ARRAY<int8_t>& w,
       int total = 0;
       for (int j = 0; j < num_in; ++j)
           total += wi[j] * u[j];
-      
-      int total_eig = 0;
-      for (int j = 0; j < num_in; ++j)
-            total_eig += w_eig(i, j) * u_eig(j);
+
       // Add in the bias and correct for integer values.
-      auto v_eng_total = static_cast<int>(v_eig_int(i));
-      v[i] = (static_cast<double>(total) / INT8_MAX + wi[num_in] * 1) * scales[i];
-        if (i==0) {
-            std::cout<<"total == total_Eig --> " << total << " = " << static_cast<int>(v_eig_int(i)) << std::endl;
-           // std::cout<<"V == V_Eig --> " << v[i] << " = " << v_copy[i] << std::endl;
-        }
+      v[i] = (static_cast<double>(total) / INT8_MAX + wi[num_in]) * scales[i];
     }
     auto finish = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = finish - start;

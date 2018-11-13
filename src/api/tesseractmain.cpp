@@ -23,7 +23,7 @@
 #endif
 
 #include <iostream>
-
+#include <stdio.h>
 #include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "basedir.h"

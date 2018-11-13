@@ -101,7 +101,7 @@ endif()
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
-option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" ON)
+option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" OFF)
 
 
 ###############################################################################
@@ -161,6 +161,8 @@ find_package(OpenCL QUIET)
 
 hunter_add_package(Eigen)
 find_package(Eigen3 CONFIG REQUIRED)
+
+ides_use_package(configuration CONFIG REQUIRED)
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(BUILD_TESTS "Build tests" ON)
@@ -293,12 +295,6 @@ if (WIN32)
         set_source_files_properties(
             ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixsse.cpp
             PROPERTIES COMPILE_DEFINITIONS __SSE4_1__)
-        set_source_files_properties(
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/dotproductavx.cpp
-            PROPERTIES COMPILE_FLAGS "/arch:AVX")
-        set_source_files_properties(
-            ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
-            PROPERTIES COMPILE_FLAGS "/arch:AVX2")
     endif()
 else()
     if(NOT CMAKE_ANDROID_ARCH_ABI STREQUAL "armeabi-v7a")
@@ -308,12 +304,6 @@ else()
         set_source_files_properties(
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixsse.cpp
                 PROPERTIES COMPILE_FLAGS "-msse4.1")
-        set_source_files_properties(
-                ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/dotproductavx.cpp
-                PROPERTIES COMPILE_FLAGS "-mavx")
-        set_source_files_properties(
-                ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
-                PROPERTIES COMPILE_FLAGS "-mavx2")
     endif()
 endif()
 
