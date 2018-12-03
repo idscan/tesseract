@@ -62,6 +62,8 @@ bool SIMDDetect::avx512BW_available_;
 bool SIMDDetect::fma_available_;
 // If true, then SSe4.1 has been detected.
 bool SIMDDetect::sse_available_;
+// If true, then neon has been detected.
+bool SIMDDetect::neon_available_;
 
 // Computes and returns the dot product of the two n-vectors u and v.
 static double DotProductGeneric(const double* u, const double* v, int n) {
