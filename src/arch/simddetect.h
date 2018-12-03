@@ -36,6 +36,8 @@ class SIMDDetect {
   }
   // Returns true if SSE4.1 is available on this system.
   static inline bool IsSSEAvailable() { return detector.sse_available_; }
+  // Returns true if neon is available on this system.
+  static inline bool IsNEONAvailable() { return detector.neon_available_; }
 
  private:
   // Constructor, must set all static member variables.
@@ -51,4 +53,6 @@ class SIMDDetect {
   static TESS_API bool avx512BW_available_;
   // If true, then SSe4.1 has been detected.
   static TESS_API bool sse_available_;
+  // If true, then neon has been detected.
+  static TESS_API bool neon_available_;
 };

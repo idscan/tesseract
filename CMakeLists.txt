@@ -159,14 +159,14 @@ endif()
 
 find_package(OpenCL QUIET)
 
-hunter_add_package(Eigen)
-find_package(Eigen3 CONFIG REQUIRED)
-
 ides_use_package(configuration CONFIG REQUIRED)
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(BUILD_TESTS "Build tests" ON)
 
+hunter_add_package(OpenCV)
+set(OpenCV_STATIC ON)
+find_package(OpenCV CONFIG REQUIRED)
 ###############################################################################
 #
 # configure
@@ -304,6 +304,12 @@ else()
         set_source_files_properties(
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixsse.cpp
                 PROPERTIES COMPILE_FLAGS "-msse4.1")
+        set_source_files_properties(
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/dotproductavx.cpp
+                PROPERTIES COMPILE_FLAGS "-mavx")
+        set_source_files_properties(
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
+                PROPERTIES COMPILE_FLAGS "-mavx2")
     endif()
 endif()
 
