@@ -21,7 +21,6 @@
 #include "matrix.h"             // for GENERIC_2D_ARRAY
 #include "simddetect.h"         // for SIMDDetect
 #include <iostream>
-#include <Eigen/Dense>
 
 namespace tesseract {
 
@@ -73,57 +72,6 @@ void IntSimdMatrix::Init(const GENERIC_2D_ARRAY<int8_t>& w,
     }
   }
 }
-//
-// void dotprod_rrrf_run(int8_t *      _h,
-//                          int8_t *      _x,
-//                          unsigned int _n,
-//                          int *      _y)
-//    {
-//        int8x8x4_t x;   // input vector
-//        int8x8x4_t h;   // coefficients vector
-//        int16x8x4_t p; // product
-//        int64 s;   // dot product
-//        
-//        // load zeros into sum register
-//        static const int zeros[32] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-//        int32x4x4_t_t sum = vld1q_(zeros);
-//        
-//        // t = 32*(floor(_n/32))
-//        unsigned int t = (_n >> 5) << 5;
-//        
-//        //
-//        unsigned int i;
-//        for (i=0; i<t; i+=4) {
-//            // load inputs into register (unaligned)
-//            v = vld1q_f32(&_x[i]);
-//            
-//            // load coefficients into register (aligned)
-//            h = vld1q_f32(&_h[i]);
-//            
-//            // compute multiplication
-//            s = vmulq_f32(h,v);
-//            
-//            // parallel addition
-//            sum = vaddq_f32(sum, s);
-//        }
-//        
-//        // unload packed array
-//        float w[4];
-//        vst1q_f32(w, sum);
-//        float total = w[0] + w[1] + w[2] + w[3];
-//        
-//        // cleanup
-//        for (; i<_n; i++)
-//            total += _x[i] * _h[i];
-//        
-//        // set return value
-//        *_y = total;
-//    }
-
-// Computes matrix.vector v = Wu.
-// u is of size W.dim2() - 1 and the output v is of size W.dim1().
-// u is imagined to have an extra element at the end with value 1, to
-// implement the bias, but it doesn't actually have it.
 
 void IntSimdMatrix::MatrixDotVector(const GENERIC_2D_ARRAY<int8_t>& w,
                                     const GenericVector<double>& scales,

@@ -74,6 +74,8 @@ class SIMDDetect {
   static TESS_API bool fma_available_;
   // If true, then SSe4.1 has been detected.
   static TESS_API bool sse_available_;
+  // If true, then neon has been detected.
+  static TESS_API bool neon_available_;
 };
 
 }  // namespace tesseract
