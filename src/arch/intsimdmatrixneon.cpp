@@ -1,36 +1,8 @@
 ///////////////////////////////////////////////////////////////////////
 
 #include "intsimdmatrixneon.h"
-
-#include <cstdint>
-#include <vector>
 #include "dotproductneon.h"
-
-// run on the generate output:
-// for i in {40..120}; do s="\["$i"\]"; grep ${s} output.txt | tail -1; done
-
-#define PRINT_TIME(INSTRUCTION, COUNTER, LINE) \
-auto start_##COUNTER = std::chrono::high_resolution_clock::now(); \
-INSTRUCTION;\
-auto finish_##COUNTER = std::chrono::high_resolution_clock::now();\
-std::chrono::duration<double> elapsed_##COUNTER = finish_##COUNTER - start_##COUNTER;\
-static float processing_time_##COUNTER = 0.f;\
-static float printed_time_##COUNTER = 0.f;\
-processing_time_##COUNTER += elapsed_##COUNTER.count();\
-if (processing_time_##COUNTER - printed_time_##COUNTER > 0.01) {\
-printed_time_##COUNTER = processing_time_##COUNTER;\
-std::cout << "[" << #LINE << "] " << #INSTRUCTION << " processing_time " << processing_time_##COUNTER << std::endl;\
-}\
-
-#define PRINT_TIME2(INSTRUCTION, COUNTER, LINE) \
-PRINT_TIME(INSTRUCTION, COUNTER, LINE)
-
-#define PROFILE(INSTRUCTION) \
-PRINT_TIME2(INSTRUCTION, __COUNTER__, __LINE__);
-
-#define NO_PROFILE(INSTRUCTION) INSTRUCTION;
-
-#include <iostream>
+#include <cstdint>
 
 namespace tesseract {
 

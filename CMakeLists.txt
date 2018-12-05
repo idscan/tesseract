@@ -287,9 +287,6 @@ endif()
 find_package(OpenCL QUIET)
 
 
-hunter_add_package(OpenCV)
-set(OpenCV_STATIC ON)
-find_package(OpenCV CONFIG REQUIRED)
 ###############################################################################
 #
 # configure
