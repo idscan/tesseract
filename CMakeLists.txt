@@ -164,9 +164,6 @@ ides_use_package(configuration CONFIG REQUIRED)
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(BUILD_TESTS "Build tests" ON)
 
-hunter_add_package(OpenCV)
-set(OpenCV_STATIC ON)
-find_package(OpenCV CONFIG REQUIRED)
 ###############################################################################
 #
 # configure

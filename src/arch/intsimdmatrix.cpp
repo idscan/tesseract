@@ -99,8 +99,6 @@ void IntSimdMatrix::MatrixDotVector(const GENERIC_2D_ARRAY<int8_t>& w,
   int num_out = w.dim1();
   int num_in = w.dim2() - 1;
   if (partial_funcs_.empty()) {
-    // Base implementation.
-    auto start = std::chrono::high_resolution_clock::now();
     for (int i = 0; i < num_out; ++i) {
       const int8_t* wi = w[i];
       int total = 0;
@@ -110,11 +108,6 @@ void IntSimdMatrix::MatrixDotVector(const GENERIC_2D_ARRAY<int8_t>& w,
       // Add in the bias and correct for integer values.
       v[i] = (static_cast<double>(total) / INT8_MAX + wi[num_in]) * scales[i];
     }
-    auto finish = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = finish - start;
-    static float processing_time = 0.f;
-    processing_time += elapsed.count();
-    //std::cout << "Base implementation processing_time " << processing_time << std::endl;
   } else {
     const int8_t* w_data = shaped_w_.data();
     const double* scales_data = &scales[0];
