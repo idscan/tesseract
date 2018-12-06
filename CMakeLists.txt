@@ -10,20 +10,6 @@
 
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
-# global project settings
-if (DEFINED IDES2_COMMON_BUILD_TOOLS_ROOT)
-# use as provided
-elseif (NOT ("$ENV{COMMON_BUILDTOOLS_ROOT}" STREQUAL ""))
-set (IDES2_COMMON_BUILD_TOOLS_ROOT $ENV{COMMON_BUILDTOOLS_ROOT})
-else()
-message (FATAL_ERROR "IDES2_COMMON_BUILD_TOOLS_ROOT not provided. Make sure you have either set the environment variable or defined it as command line argument")
-endif()
-
-include("${IDES2_COMMON_BUILD_TOOLS_ROOT}/cmake/ides2-common.cmake")
-
-set(LIBRARY_NAME "libtesseract")
-
-set_version()
 
 include(cmake/HunterGate.cmake)
 
@@ -66,13 +52,7 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake Targets")
 #
 ###############################################################################
 
-project(tesseract LANGUAGES C CXX VERSION ${LIBRARY_VERSION})
-
-set_common_flags()
-
-# Fetch all the required resources
-set (RESOURCE_LIST "resource-config")
-fetch_resources(${RESOURCE_LIST})
+project(tesseract C CXX)
 
 # Get version with components from VERSION file.
 file(STRINGS "VERSION" VERSION_PLAIN)
@@ -109,7 +89,7 @@ endif()
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
-option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" OFF)
+option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" ON)
 
 
 ###############################################################################
@@ -651,4 +631,3 @@ setup_code_coverage()
 ###############################################################################
 # installation
 ###############################################################################
-setup_installation()
