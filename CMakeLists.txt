@@ -10,20 +10,6 @@
 
 cmake_minimum_required(VERSION 3.0.0)
 
-# global project settings
-if (DEFINED IDES2_COMMON_BUILD_TOOLS_ROOT)
-# use as provided
-elseif (NOT ("$ENV{COMMON_BUILDTOOLS_ROOT}" STREQUAL ""))
-set (IDES2_COMMON_BUILD_TOOLS_ROOT $ENV{COMMON_BUILDTOOLS_ROOT})
-else()
-message (FATAL_ERROR "IDES2_COMMON_BUILD_TOOLS_ROOT not provided. Make sure you have either set the environment variable or defined it as command line argument")
-endif()
-
-include("${IDES2_COMMON_BUILD_TOOLS_ROOT}/cmake/ides2-common.cmake")
-
-set(LIBRARY_NAME "libtesseract")
-
-set_version()
 
 include(cmake/HunterGate.cmake)
 
@@ -66,13 +52,7 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake Targets")
 #
 ###############################################################################
 
-project(tesseract LANGUAGES C CXX VERSION ${LIBRARY_VERSION})
-
-set_common_flags()
-
-# Fetch all the required resources
-set (RESOURCE_LIST "resource-config")
-fetch_resources(${RESOURCE_LIST})
+project(tesseract C CXX)
 
 # Get version with components from VERSION file.
 file(STRINGS "VERSION" VERSION_PLAIN)
@@ -101,7 +81,7 @@ endif()
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(Tesseract_BUILD_EXE "Build tesseract executable" OFF)
-option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" OFF)
+option(Tesseract_USE_OPENCL "Build tesseract with OpenCL support" ON)
 
 
 ###############################################################################
@@ -158,8 +138,6 @@ else()
 endif()
 
 find_package(OpenCL QUIET)
-
-ides_use_package(configuration CONFIG REQUIRED)
 
 option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 option(BUILD_TESTS "Build tests" ON)
@@ -470,43 +448,5 @@ install(FILES
     #${CMAKE_BINARY_DIR}/src/endianness.h
     DESTINATION include/tesseract)
 
-###############################################################################
-# Test settings
-###############################################################################
-# define target
-set(TEST_EXECUTABLE_NAME "ut_${LIBRARY_NAME}")
-
-# Generate source file list.
-set(TEST_SOURCE_DIR ${PROJECT_SOURCE_DIR}/test/unit-tests)
-set(SOURCE_FILES)
-get_source_file_list(${TEST_SOURCE_DIR})
-
-set(TEST_DATA_DIR ${CMAKE_CURRENT_BINARY_DIR}/test-data)
-set(RESOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/external-res)
-
-if(APPLE AND CMAKE_OSX_SYSROOT STREQUAL "iphoneos")
-add_executable(${TEST_EXECUTABLE_NAME} MACOSX_BUNDLE ${SOURCE_FILES}
-${TEST_DATA_DIR}
-${RESOURCE_DIR})
-set_source_files_properties(${TEST_DATA_DIR} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-set_source_files_properties(${RESOURCE_DIR} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-set_target_properties(${TEST_EXECUTABLE_NAME} PROPERTIES XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "8.4")
-else()
-add_executable(${TEST_EXECUTABLE_NAME} ${SOURCE_FILES})
-endif()
-
-ides_set_test_target_properties(${TEST_EXECUTABLE_NAME})
-
-target_include_directories(${TEST_EXECUTABLE_NAME} PRIVATE ${LIBRARY_SOURCE_DIR} # to be able to test private interface
-${TEST_SOURCE_DIR})
-
-configure_unit_test()
-
-target_link_libraries(${TEST_EXECUTABLE_NAME} PRIVATE ${LIBRARY_NAME})
-
-setup_code_coverage()
 
 ###############################################################################
-# installation
-###############################################################################
-setup_installation()
