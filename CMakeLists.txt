@@ -292,6 +292,12 @@ if (WIN32)
         set_source_files_properties(
             ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixsse.cpp
             PROPERTIES COMPILE_DEFINITIONS __SSE4_1__)
+        set_source_files_properties(
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/dotproductavx.cpp
+            PROPERTIES COMPILE_FLAGS "/arch:AVX")
+        set_source_files_properties(
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/intsimdmatrixavx2.cpp
+            PROPERTIES COMPILE_FLAGS "/arch:AVX2")
     endif()
 else()
     if(NOT CMAKE_ANDROID_ARCH_ABI STREQUAL "armeabi-v7a")
@@ -332,7 +338,6 @@ if (Tesseract_USE_OPENCL)
     endif()
     target_link_libraries       (libtesseract PUBLIC OpenCL::OpenCL)
 endif()
-target_link_libraries           (libtesseract PRIVATE Eigen3::Eigen)
 target_link_libraries           (libtesseract PUBLIC ${LIB_Ws2_32} ${LIB_pthread})
 set_target_properties           (libtesseract PROPERTIES VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 set_target_properties           (libtesseract PROPERTIES SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
