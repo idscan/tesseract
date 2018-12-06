@@ -23,7 +23,7 @@
 
 #include <cerrno>               // for errno
 #include <iostream>
-#include <stdio.h>
+
 #include "leptonica/allheaders.h"
 #include "baseapi.h"
 #include "dict.h"

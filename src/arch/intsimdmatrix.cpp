@@ -20,7 +20,6 @@
 #include "genericvector.h"      // for GenericVector
 #include "matrix.h"             // for GENERIC_2D_ARRAY
 #include "simddetect.h"         // for SIMDDetect
-#include <iostream>
 
 namespace tesseract {
 
@@ -73,6 +72,10 @@ void IntSimdMatrix::Init(const GENERIC_2D_ARRAY<int8_t>& w,
   }
 }
 
+// Computes matrix.vector v = Wu.
+// u is of size W.dim2() - 1 and the output v is of size W.dim1().
+// u is imagined to have an extra element at the end with value 1, to
+// implement the bias, but it doesn't actually have it.
 void IntSimdMatrix::MatrixDotVector(const GENERIC_2D_ARRAY<int8_t>& w,
                                     const GenericVector<double>& scales,
                                     const int8_t* u, double* v) {
