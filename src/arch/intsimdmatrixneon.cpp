@@ -6,7 +6,7 @@
 
 namespace tesseract {
 
-#ifdef __aarch64__
+#ifdef __arm__
 // Computes part of matrix.vector v = Wu. Computes 1 result.
 static void PartialMatrixDotVector1(const int8_t* wi, const double* scales,
                                     const int8_t* u, int num_in, int /*num_out*/,
@@ -15,10 +15,10 @@ static void PartialMatrixDotVector1(const int8_t* wi, const double* scales,
   // Add in the bias and correct for integer values.
   *v = (static_cast<double>(total) / INT8_MAX + wi[num_in]) * *scales;
 }
-#endif  // __aarch64__
+#endif  // __arm__
 
 IntSimdMatrixNEON::IntSimdMatrixNEON() {
-#ifdef __aarch64__
+#ifdef __arm__
   partial_funcs_ = {PartialMatrixDotVector1};
 #endif
 }

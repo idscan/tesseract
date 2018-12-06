@@ -79,7 +79,7 @@ SIMDDetect::SIMDDetect() {
 #else
 #error "I don't know how to test for SIMD with this compiler"
 #endif
-#elif defined(__aarch64__)
+#elif defined(__arm__)
     neon_available_ = true;
 #endif
 }
