@@ -23,6 +23,7 @@
 #include "intsimdmatrixneon.h"  // for IntSimdMatrixNEON
 #include "matrix.h"             // for GENERIC_2D_ARRAY
 #include "simddetect.h"         // for SIMDDetect
+#include <iostream>
 
 namespace tesseract {
 
@@ -32,13 +33,17 @@ namespace tesseract {
 IntSimdMatrix* IntSimdMatrix::GetFastestMultiplier() {
   IntSimdMatrix* multiplier = nullptr;
   if (SIMDDetect::IsAVX2Available()) {
+    std::cout << "AVX2 Dot Prod implementation" << std::endl;
     multiplier = new IntSimdMatrixAVX2();
   } else if (SIMDDetect::IsSSEAvailable()) {
+    std::cout << "SEE Dot Prod implementation" << std::endl;
     multiplier = new IntSimdMatrixSSE();
   } else if (SIMDDetect::IsNEONAvailable()) {
     multiplier = new IntSimdMatrixNEON();
+    std::cout << "NEON Dot Prod implementation" << std::endl;
   } else {
     // Default c++ implementation.
+    std::cout << "C++ Dot Prod implementation" << std::endl;
     multiplier = new IntSimdMatrix();
   }
   return multiplier;
