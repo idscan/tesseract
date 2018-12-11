@@ -23,7 +23,6 @@
 #include "intsimdmatrixneon.h"  // for IntSimdMatrixNEON
 #include "matrix.h"             // for GENERIC_2D_ARRAY
 #include "simddetect.h"         // for SIMDDetect
-#include <iostream>
 
 namespace tesseract {
 
