@@ -1,6 +1,7 @@
+#include "dotproductneon.h"
+
 #if !(defined(__arm__) || defined(__aarch64__))
 
-#include "dotproductneon.h"
 #include <cstdio>
 #include <cstdlib>
 
@@ -13,7 +14,6 @@ namespace tesseract {
 
 #else  // !(defined(__arm__) || defined(__aarch64__))
 
-#include "dotproductneon.h"
 #include <arm_neon.h>
 
 namespace tesseract {
