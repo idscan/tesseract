@@ -27,7 +27,7 @@ namespace tesseract {
 #ifdef __SSE4_1__
 // Computes part of matrix.vector v = Wu. Computes 1 result.
 static void PartialMatrixDotVector1(const int8_t* wi, const double* scales,
-                                    const int8_t* u, int num_in, int num_out,
+                                    const int8_t* u, int num_in, int /*num_out*/,
                                     double* v) {
   int total = IntDotProductSSE(u, wi, num_in);
   // Add in the bias and correct for integer values.

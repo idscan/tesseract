@@ -160,8 +160,6 @@ bool LSTMRecognizer::LoadDictionary(const char* lang, TessdataManager* mgr) {
   dict_->SetupForLoad(Dict::GlobalDawgCache());
   dict_->LoadLSTM(lang, mgr);
   if (dict_->FinishLoad()) return true;  // Success.
-  tprintf("Failed to load any lstm-specific dictionaries for lang %s!!\n",
-          lang);
   delete dict_;
   dict_ = nullptr;
   return false;
