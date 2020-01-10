@@ -622,4 +622,12 @@ if(NOT TARGET uninstall)
         COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif()
 
+configure_unit_test()
+
+target_link_libraries(${TEST_EXECUTABLE_NAME} PRIVATE ${LIBRARY_NAME})
+
+setup_code_coverage()
+
+###############################################################################
+# installation
 ###############################################################################
