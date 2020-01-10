@@ -10,6 +10,20 @@
 
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 
+
+include(cmake/HunterGate.cmake)
+
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.19.7.tar.gz"
+    SHA1 "e83786da74f703099fce44a4c021b5d3e5fc3b41"
+)
+
+if (NOT APPVEYOR)
+if (WIN32 AND (CMAKE_VERSION VERSION_EQUAL 3.6 OR (CMAKE_VERSION VERSION_GREATER 3.6 AND CMAKE_VERSION VERSION_LESS 3.7)))
+    message(FATAL_ERROR "You have bugged CMake version 3.6 which is known to not work with tesseract. Please, upgrade CMake.")
+endif()
+endif()
+
 # In-source builds are disabled.
 if ("${CMAKE_CURRENT_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_BINARY_DIR}")
     message(FATAL_ERROR
@@ -60,6 +74,23 @@ set(GENERIC_MINOR_VERSION ${VERSION_MINOR})
 set(GENERIC_MICRO_VERSION ${VERSION_PATCH})
 
 set(MINIMUM_LEPTONICA_VERSION 1.74)
+
+if(NOT EXISTS ${PROJECT_SOURCE_DIR}/.cppan)
+    hunter_add_package(Leptonica)
+    find_package(Leptonica ${MINIMUM_LEPTONICA_VERSION} REQUIRED CONFIG)
+else()
+    if (STATIC)
+        set(CPPAN_BUILD_SHARED_LIBS 0)
+    else()
+        set(CPPAN_BUILD_SHARED_LIBS 1)
+    endif()
+    add_subdirectory(.cppan)
+endif()
+
+hunter_add_package(OpenCL)
+find_package(OpenCL QUIET)
+
+option(BUILD_TRAINING_TOOLS "Build training tools" ON)
 
 ###############################################################################
 #
@@ -458,6 +489,7 @@ endif()
 add_library                     (libtesseract ${LIBRARY_TYPE} ${tesseract_src} ${arch_files}
     ${arch_files_opt} ${tesseract_hdr} ${tesseract_rsc}
     )
+
 if (NOT STATIC)
 target_compile_definitions      (libtesseract
     PRIVATE -DTESS_EXPORTS
@@ -491,7 +523,7 @@ elseif (SW_BUILD)
     export(TARGETS libtesseract APPEND FILE ${CMAKE_CURRENT_BINARY_DIR}/TesseractTargets.cmake)
 else()
     target_link_libraries       (libtesseract PUBLIC
-        ${Leptonica_LIBRARIES}
+        Leptonica::leptonica
         ${LibArchive_LIBRARIES}
     )
     export(TARGETS libtesseract FILE ${CMAKE_CURRENT_BINARY_DIR}/TesseractTargets.cmake)
