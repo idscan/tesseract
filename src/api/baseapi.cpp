@@ -63,7 +63,6 @@
 #include "dict.h"              // for Dict
 #include "edgblob.h"           // for extract_edges
 #include "elst.h"              // for ELIST_ITERATOR, ELISTIZE, ELISTIZEH
-#include "environ.h"           // for l_uint8
 #include "leptonica/environ.h"           // for l_uint8, FALSE, TRUE
 #include "equationdetect.h"    // for EquationDetect
 #include "errcode.h"           // for ASSERT_HOST
