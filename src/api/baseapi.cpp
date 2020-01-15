@@ -1015,13 +1015,13 @@ bool TessBaseAPI::ProcessPagesFileList(FILE *flist,
     Pix *pix = pixRead(pagename);
     if (pix == nullptr) {
       tprintf("Image file %s cannot be read!\n", pagename);
-      ++page;
-      continue;
+      return false;
     }
     tprintf("Page %d : %s\n", page, pagename);
     bool r = ProcessPage(pix, page, pagename, retry_config,
                          timeout_millisec, renderer);
     pixDestroy(&pix);
+    if (!r) return false;
     if (tessedit_page_number >= 0) break;
     ++page;
   }
@@ -1242,11 +1242,6 @@ bool TessBaseAPI::ProcessPage(Pix* pix, int page_index, const char* filename,
                               TessResultRenderer* renderer) {
   SetInputName(filename);
   SetImage(pix);
-  if (filename != nullptr) {
-      if (renderer != nullptr) {
-          renderer = new tesseract::TessTextRenderer(filename);
-      }
-  }
   bool failed = false;
 
   if (tesseract_->tessedit_pageseg_mode == PSM_AUTO_ONLY) {
