@@ -31,7 +31,7 @@ function(check_leptonica_tiff_support)
   try_run(
     LEPT_TIFF_RESULT
     LEPT_TIFF_COMPILE 
-    SOURCE_FROM_CONTENT tiff_test.cpp "${TIFF_TEST}"
+    SOURCE_FROM_VAR tiff_test.cpp TIFF_TEST
     LINK_LIBRARIES Leptonica::leptonica
     COMPILE_OUTPUT_VARIABLE
     COMPILE_OUTPUT)
