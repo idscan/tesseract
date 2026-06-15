@@ -879,11 +879,16 @@ endif()
 
 if(ANDROID)
   add_definitions(-DANDROID)
-  find_package(CpuFeaturesNdkCompat REQUIRED)
-  target_include_directories(
-    libtesseract
-    PRIVATE "${CpuFeaturesNdkCompat_DIR}/../../../include/ndk_compat")
-  target_link_libraries(libtesseract PRIVATE CpuFeatures::ndk_compat)
+  # Note: Upstream includes the CpuFeaturesNdkCompat package from google/cpu_features, but we have not hunterised that.
+  # Additionally, the integration of that was not done correctly such that it would never enable NEON on armv7 even when it was available
+  # as HAVE_ANDROID_GETCPUFAMILY was never set during a CMake build (but is set by configure.ac).
+  # Anyway, there is an alternative path in src/arch/simddetect.cpp that uses getauxval from the Android NDK to detect NEON, so we can use
+  # that instead to avoid the extra dependency.
+  include(CheckSymbolExists)
+  check_symbol_exists(getauxval "sys/auxv.h" HAVE_GETAUXVAL)
+  if(HAVE_GETAUXVAL)
+    target_compile_definitions(libtesseract PRIVATE HAVE_GETAUXVAL)
+  endif()
 endif()
 
 # ##############################################################################

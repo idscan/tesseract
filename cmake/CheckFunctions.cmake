@@ -27,8 +27,16 @@ function(check_leptonica_tiff_support)
   "  pixDestroy(&pix);\n"
   "  lept_free(data);\n"
   "  return ret_val;}\n")
-  if(${CMAKE_VERSION} VERSION_LESS "3.25")
-    message(STATUS "Testing TIFF support in Leptonica is available with CMake >= 3.25 (you have ${CMAKE_VERSION}))")
+  if(${CMAKE_VERSION} VERSION_LESS "3.25" OR CMAKE_CROSSCOMPILING)
+    # Note: Upstream only includes the check for CMake >= 3.25, but
+    # try_run() cannot execute test binaries when cross-compiling, which causes
+    # a CMake Error and build failures on iOS and Android even though the calling
+    # code handles the result gracefully.
+    if(CMAKE_CROSSCOMPILING)
+      message(STATUS "Skipping Leptonica TIFF support check (cross-compiling)")
+    else()
+      message(STATUS "Testing TIFF support in Leptonica is available with CMake >= 3.25 (you have ${CMAKE_VERSION}))")
+    endif()
   else()
     set(CMAKE_TRY_COMPILE_CONFIGURATION ${CMAKE_BUILD_TYPE})
     try_run(
